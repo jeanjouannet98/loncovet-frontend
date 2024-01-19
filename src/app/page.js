@@ -6,12 +6,14 @@ import "./globals.css"
 export default function Page() {
 const [username, setUsername] = useState('');
 const [password, setPassword] = useState('');
+const [errorMessage, setErrorMessage] = useState('');
 
 const url = `${globalUrl}/user`; 
 const credentials = { username, password };
 
 const handleSubmit = async (e) => {
   e.preventDefault();
+  setErrorMessage('');
 
 try {
   const response = await fetch(url, {
@@ -27,16 +29,24 @@ try {
     console.log('Login exitoso');
   } else {
     // Manejo de errores
+    setErrorMessage('Usuario o contraseña incorrecta');
     console.log('Error en el login');
   }
 } catch (error) {
   // Manejo de errores de red
+  setErrorMessage('Error de conexión');
   console.log('Error de conexión', error);
 }
 }
 return (
   <div className="flex items-center justify-center h-screen bg-gray-100">
     <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    {errorMessage && (
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+            <strong className="font-bold">Error: </strong>
+            <span className="block sm:inline">{errorMessage}</span>
+          </div>
+        )}
       <div className="mb-4">
         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
           Usuario
