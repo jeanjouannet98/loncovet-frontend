@@ -8,7 +8,7 @@ const [username, setUsername] = useState('');
 const [password, setPassword] = useState('');
 const [errorMessage, setErrorMessage] = useState('');
 
-const url = `${globalUrl}/user`; 
+const url = `${globalUrl}/users/login`; 
 const credentials = { username, password };
 
 const handleSubmit = async (e) => {
