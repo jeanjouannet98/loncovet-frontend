@@ -7,7 +7,7 @@ const AppointmentsList = () => {
     const fetchAppointments = async () => {
       try {
         const uuid = localStorage.getItem('userUuid');
-        const response = await fetch(`http://localhost:3000/users/appointments/${uuid}`);
+        const response = await fetch(`https://cheerful-hare-vestments.cyclic.app/users/appointments/${uuid}`);
         if (!response.ok) {
           throw new Error('No se pudo obtener las citas');
         }
@@ -23,7 +23,7 @@ const AppointmentsList = () => {
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3000/appointments/${id}`, {
+      const response = await fetch(`https://cheerful-hare-vestments.cyclic.app/appointments/${id}`, {
         method: 'DELETE',
       });
       if (!response.ok) {
