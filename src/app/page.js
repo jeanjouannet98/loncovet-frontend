@@ -8,7 +8,7 @@ const [username, setUsername] = useState('');
 const [password, setPassword] = useState('');
 const [errorMessage, setErrorMessage] = useState('');
 
-const url = `${globalUrl}/user`; 
+const url = `http://localhost:3000/users/login`; 
 const credentials = { username, password };
 
 const handleSubmit = async (e) => {
@@ -25,8 +25,9 @@ try {
   });
 
   if (response.ok) {
+    const data = await response.json();
+    localStorage.setItem('userUuid', data.user._id);
     window.location.href = '/home';
-    console.log('Login exitoso');
   } else {
     // Manejo de errores
     setErrorMessage('Usuario o contraseña incorrecta');
