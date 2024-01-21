@@ -2,10 +2,12 @@
 import NavBar from "./navbar"
 import AddAppointmentForm from "./appointment"
 import "../globals.css"
+import AppointmentsList from "./appointment-list";
 
 const handleAddAppointment = async (appointmentData) => {
+  console.log('Enviando cita:', appointmentData); 
   try {
-    const response = await fetch(`${globalUrl}/appointments`, {
+    const response = await fetch(`http://localhost:3000/appointments`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -13,9 +15,10 @@ const handleAddAppointment = async (appointmentData) => {
       body: JSON.stringify(appointmentData),
     });
     if (!response.ok) {
+      page.alert('Error al crear la cita');
       throw new Error('Error al crear la cita');
     }
-    // Manejar la respuesta
+    page.alert('Cita creada exitosamente');
   } catch (error) {
     console.error(error.message);
   }
@@ -27,7 +30,7 @@ export default function Page() {
         <div>
             <NavBar />
             <AddAppointmentForm onAddAppointment={handleAddAppointment} />
-            <h1>Home</h1>
+            <AppointmentsList />
         </div>
     )
   }
