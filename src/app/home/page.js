@@ -7,7 +7,7 @@ import AppointmentsList from "./appointment-list";
 const handleAddAppointment = async (appointmentData) => {
   console.log('Enviando cita:', appointmentData); 
   try {
-    const response = await fetch(`http://localhost:3000/appointments`, {
+    const response = await fetch(`https://cheerful-hare-vestments.cyclic.app/appointments`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
