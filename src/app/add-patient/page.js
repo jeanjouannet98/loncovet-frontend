@@ -10,8 +10,7 @@ export default function PatientPage() {
 
     const handleAddPatient = async (patientData) => {
         try {
-            const response = await fetch(`https://cheerful-hare-vestments.cyclic.app
-            /patient`, {
+            const response = await fetch(`https://cheerful-hare-vestments.cyclic.app/patient`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -10,8 +10,7 @@ const AppointmentsList = () => {
   useEffect(() => {
     const fetchAppointments = async () => {
       try {
-        const response = await fetch(`https://cheerful-hare-vestments.cyclic.app
-        /users/appointments?page=${currentPage}&limit=${appointmentsPerPage}`);
+        const response = await fetch(`https://cheerful-hare-vestments.cyclic.app/users/appointments?page=${currentPage}&limit=${appointmentsPerPage}`);
         if (!response.ok) {
           throw new Error('No se pudo obtener las citas');
         }
@@ -29,8 +28,7 @@ const AppointmentsList = () => {
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`https://cheerful-hare-vestments.cyclic.app
-/appointments/${id}`, {
+      const response = await fetch(`https://cheerful-hare-vestments.cyclic.app/appointments/${id}`, {
         method: 'DELETE',
       });
       if (!response.ok) {
