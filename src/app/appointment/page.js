@@ -15,7 +15,8 @@ export default function Page() {
 
     const handleAddAppointment = async (appointmentData) => {
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/appointments`, {
+            const response = await fetch(`https://cheerful-hare-vestments.cyclic.app
+/appointments`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
