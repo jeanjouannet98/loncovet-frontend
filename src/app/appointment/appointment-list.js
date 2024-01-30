@@ -2,28 +2,33 @@ import React, { useState, useEffect } from 'react';
 
 const AppointmentsList = () => {
   const [appointments, setAppointments] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0); // Si decides enviar el total de citas desde el backend
+
+  const appointmentsPerPage = 5; // Número de citas por página
 
   useEffect(() => {
     const fetchAppointments = async () => {
       try {
-        const uuid = localStorage.getItem('userUuid');
-        const response = await fetch(`https://cheerful-hare-vestments.cyclic.app/users/appointments/${uuid}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/appointments?page=${currentPage}&limit=${appointmentsPerPage}`);
         if (!response.ok) {
           throw new Error('No se pudo obtener las citas');
         }
         const data = await response.json();
-        setAppointments(data);
+        setAppointments(data.appointments); // Asumiendo que la respuesta incluye las citas en un campo 'appointments'
+        setTotalPages(data.totalPages); // Ajusta según la estructura de tu respuesta
       } catch (error) {
         console.error(error.message);
       }
     };
 
     fetchAppointments();
-  }, []);
+  }, [currentPage]); // Dependencia de currentPage para recargar citas al cambiar la página
+
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`https://cheerful-hare-vestments.cyclic.app/appointments/${id}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/appointments/${id}`, {
         method: 'DELETE',
       });
       if (!response.ok) {
@@ -40,6 +45,11 @@ const AppointmentsList = () => {
     return new Date(dateString).toLocaleDateString('es-CL', options);
   };
 
+   // Función para cambiar de página
+   const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
+
   return (
     <div className="container mx-auto my-8">
       <h1 className="text-2xl font-semibold text-center text-white-800 mb-8">Citas</h1>
@@ -50,7 +60,7 @@ const AppointmentsList = () => {
               <div>
                 <p className="text-sm font-medium text-gray-900">Nombre: {appointment.name} {appointment.lastname}</p>
                 <p className="text-sm text-gray-500">RUT: {appointment.rut}</p>
-                <p className="text-sm text-gray-500">Telefono: {appointment.phone}</p>
+                <p className="text-sm text-gray-500">Teléfono: {appointment.phone}</p>
                 <p className="text-sm text-gray-500">Fecha: {formatDate(appointment.date)}</p>
                 <p className="text-sm text-gray-500">Hora: {appointment.hour}</p>
               </div>
@@ -63,9 +73,22 @@ const AppointmentsList = () => {
             </li>
           ))}
         </ul>
+        {/* Controles de paginación */}
+        <div className="flex justify-center mt-4">
+          {[...Array(totalPages).keys()].map(number => (
+            <button
+              key={number}
+              onClick={() => handlePageChange(number + 1)}
+              className={`mx-1 px-3 py-1 border rounded ${number + 1 === currentPage ? 'bg-blue-500 text-white' : 'bg-white'}`}
+            >
+              {number + 1}
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );
+  
 };
 
 export default AppointmentsList;
