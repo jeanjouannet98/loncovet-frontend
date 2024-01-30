@@ -16,12 +16,30 @@
   }
 }
 
+@layer base {
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: url("/backgroundimg.jpg");
+  background-position: center; 
+  background-repeat: no-repeat; 
+  background-size: cover;
+  filter: brightness(80%) contrast(90%);
+  z-index: -1;  /* Coloca el fondo detrás del contenido */
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  min-height: 100vh; /* Esto asegura que al menos tenga el alto del viewport */
+}
 }

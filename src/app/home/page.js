@@ -1,36 +1,14 @@
-"use client";
-import NavBar from "./navbar"
-import AddAppointmentForm from "./appointment"
-import "../globals.css"
-import AppointmentsList from "./appointment-list";
-
-const handleAddAppointment = async (appointmentData) => {
-  console.log('Enviando cita:', appointmentData); 
-  try {
-    const response = await fetch(`https://cheerful-hare-vestments.cyclic.app/appointments`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(appointmentData),
-    });
-    if (!response.ok) {
-      page.alert('Error al crear la cita');
-      throw new Error('Error al crear la cita');
-    }
-    page.alert('Cita creada exitosamente');
-  } catch (error) {
-    console.error(error.message);
-  }
-};
-
+"use client"
+import React, { useState } from 'react';
+import NavBar from "./navbar-auth.js";
+import "../globals.css";
+import AppointmentsList from '../appointment/appointment-list.js';
 
 export default function Page() {
-    return (
-        <div>
-            <NavBar />
-            <AddAppointmentForm onAddAppointment={handleAddAppointment} />
-            <AppointmentsList />
-        </div>
+    return(
+        <>
+        <NavBar />
+        <AppointmentsList />
+        </>
     )
-  }
+}
