@@ -10,8 +10,7 @@ const PatientsList = () => {
   useEffect(() => {
     const fetchPatients = async () => {
       try {
-        const response = await fetch(`https://cheerful-hare-vestments.cyclic.app
-/patient`);
+        const response = await fetch(`https://cheerful-hare-vestments.cyclic.app/patient`);
         if (!response.ok) {
           throw new Error('Error al obtener la lista de pacientes');
         }
@@ -32,8 +31,7 @@ const PatientsList = () => {
 
   const handleDelete = async (patientId) => {
     try {
-      const response = await fetch(`https://cheerful-hare-vestments.cyclic.app
-/patient/${patientId}`, {
+      const response = await fetch(`https://cheerful-hare-vestments.cyclic.app/patient/${patientId}`, {
         method: 'DELETE',
       });
 
@@ -49,8 +47,7 @@ const PatientsList = () => {
 
   const handlePatientUpdate = async (patientData) => {
     try {
-      const response = await fetch(`https://cheerful-hare-vestments.cyclic.app
-/patient/${currentPatient._id}`, {
+      const response = await fetch(`https://cheerful-hare-vestments.cyclic.app/patient/${currentPatient._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

@@ -7,8 +7,7 @@ const [username, setUsername] = useState('');
 const [password, setPassword] = useState('');
 const [errorMessage, setErrorMessage] = useState('');
 
-const url = `https://cheerful-hare-vestments.cyclic.app
-/users/login`; 
+const url = `https://cheerful-hare-vestments.cyclic.app/users/login`; 
 const credentials = { username, password };
 
 const handleSubmit = async (e) => {
